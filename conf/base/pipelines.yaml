@@ -1,0 +1,36 @@
+data_engineering:
+  split_data:
+    nb:
+      input_path: notebooks/data_engineering/split_data.ipynb
+    inputs:
+      - example_iris_data
+    outputs:
+      - example_train_x_
+      - example_train_y_
+      - example_test_x_
+      - example_test_y_
+
+data_science:
+  train_model:
+    nb:
+      input_path: notebooks/data_science/train_model.ipynb
+    inputs:
+      - example_train_x_
+      - example_train_y_
+    outputs:
+      - example_model_
+  predict:
+    nb:
+      input_path: notebooks/data_science/predict.ipynb
+    inputs:
+      - example_model_
+      - example_test_x_
+    outputs:
+      - example_predictions_
+  report_accuracy:
+    nb:
+      input_path: notebooks/data_science/report_accuracy.ipynb
+    inputs:
+      - example_predictions_
+      - example_test_y_
+    outputs:
