@@ -2,6 +2,8 @@ data_engineering:
   split_data:
     nb:
       input_path: notebooks/data_engineering/split_data.ipynb
+      parameters:
+        test_data_ratio: 0.2
     inputs:
       - example_iris_data
     outputs:
@@ -14,6 +16,9 @@ data_science:
   train_model:
     nb:
       input_path: notebooks/data_science/train_model.ipynb
+      parameters:
+        num_iter: 10000
+        lr: 0.01
     inputs:
       - example_train_x_
       - example_train_y_
