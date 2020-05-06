@@ -16,6 +16,7 @@ pytest-mock = ">=1.7.1,<2.0"
 pytest = ">=3.4,<4.0"
 papermill = "*"
 mlflow = "*"
+scikit-learn = "*"
 
 [requires]
 python_version = "3.6"
