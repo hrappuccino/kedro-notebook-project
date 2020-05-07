@@ -7,10 +7,10 @@ data_engineering:
     inputs:
       - example_iris_data
     outputs:
-      - example_train_x_
-      - example_train_y_
-      - example_test_x_
-      - example_test_y_
+      - example_train_x
+      - example_train_y
+      - example_test_x
+      - example_test_y
 
 data_science:
   train_model:
@@ -20,22 +20,22 @@ data_science:
         num_iter: 10000
         lr: 0.01
     inputs:
-      - example_train_x_
-      - example_train_y_
+      - example_train_x
+      - example_train_y
     outputs:
-      - example_model_
+      - example_model
   predict:
     nb:
       input_path: notebooks/data_science/predict.ipynb
     inputs:
-      - example_model_
-      - example_test_x_
+      - example_model
+      - example_test_x
     outputs:
-      - example_predictions_
+      - example_predictions
   report_accuracy:
     nb:
       input_path: notebooks/data_science/report_accuracy.ipynb
     inputs:
-      - example_predictions_
-      - example_test_y_
+      - example_predictions
+      - example_test_y
     outputs:
