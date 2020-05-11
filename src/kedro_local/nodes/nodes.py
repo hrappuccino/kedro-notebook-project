@@ -1,15 +1,20 @@
 import papermill as pm
-import os, re, json, hashlib, datetime
+from pathlib import Path
+import os, re, urllib, datetime
+
+DEFAULT_VERSION = datetime.datetime.now().isoformat(timespec='milliseconds').replace(':', '.') + 'Z'
 
 def _extract_dataset_name_from_log(output_text):
     m = re.search(r'kedro.io.data_catalog - INFO - Saving data to `(\w+)`', output_text)
     return m.group(1) if m else None
 
 class NotebookExecuter:
-    def __init__(self, catalog, input_path, output_path=None, parameters=None):
+    def __init__(self, catalog, input_path, output_path=None, parameters=None, versioned=False, version=DEFAULT_VERSION):
         self.__catalog = catalog
         self.__input_path = input_path
         self.__parameters = parameters
+        self.__versioned = versioned
+        self.__version = version
         self.__output_path = output_path or self.__get_default_output_path()
 
     def __call__(self, *args):
@@ -19,6 +24,11 @@ class NotebookExecuter:
 
     def __get_default_output_path(self):
         name, ext = os.path.splitext(os.path.basename(self.__input_path))
-        parameters_hash = hashlib.sha1(json.dumps(self.__parameters, sort_keys=True).encode('utf-8')).hexdigest()
-        timestamp = datetime.datetime.now().isoformat()
-        return os.path.join(os.environ['PAPERMILL_OUTPUT_DIR'], f'{name}_{parameters_hash}_{timestamp}{ext}')
+        if self.__parameters:
+            name += '#' + urllib.parse.urlencode(self.__parameters)
+        name += ext
+        output_dir = Path(os.getenv('PAPERMILL_OUTPUT_DIR', ''))
+        if self.__versioned:
+            output_dir = output_dir / name / self.__version
+            output_dir.mkdir(parents=True, exist_ok=True)
+        return str(output_dir / name)

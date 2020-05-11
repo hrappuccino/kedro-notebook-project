@@ -3,7 +3,7 @@ from kedro_local.nodes import *
 import yaml
 
 def create_pipelines(catalog, **kwargs):
-    with open('conf/base/pipelines.yaml') as f:
+    with open('conf/base/pipelines.yml') as f:
         pipelines_ = yaml.safe_load(f)
 
     pipelines = {

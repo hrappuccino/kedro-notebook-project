@@ -19,6 +19,7 @@ data_science:
       parameters:
         num_iter: 10000
         lr: 0.01
+      versioned: True
     inputs:
       - example_train_x
       - example_train_y
@@ -27,6 +28,7 @@ data_science:
   predict:
     nb:
       input_path: notebooks/data_science/predict.ipynb
+      versioned: True
     inputs:
       - example_model
       - example_test_x
@@ -35,6 +37,7 @@ data_science:
   report_accuracy:
     nb:
       input_path: notebooks/data_science/report_accuracy.ipynb
+      versioned: True
     inputs:
       - example_predictions
       - example_test_y
