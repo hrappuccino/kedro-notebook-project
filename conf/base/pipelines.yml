@@ -41,4 +41,3 @@ data_science:
     inputs:
       - example_predictions
       - example_test_y
-    outputs:
