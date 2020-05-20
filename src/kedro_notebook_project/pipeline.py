@@ -11,7 +11,7 @@ def create_pipelines(catalog, **kwargs):
             node(
                 NotebookExecuter(catalog, **node_['nb']),
                 node_['inputs'] if 'inputs' in node_ else None,
-                node_['outputs'] if 'outputs' in node_ else None,
+                {output: output for output in node_['outputs']} if 'outputs' in node_ else None,
                 name=node_name,
             ) for node_name, node_ in nodes_.items()
         ]) for pipeline_name, nodes_ in pipelines_.items()

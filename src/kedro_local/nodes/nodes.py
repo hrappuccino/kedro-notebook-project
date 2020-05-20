@@ -24,7 +24,7 @@ class NotebookExecuter:
             for cell in nb['cells'] if 'outputs' in cell
             for output in cell['outputs'] if 'text' in output
         ]
-        return [self.__catalog.load(dataset_name) for dataset_name in dataset_names if dataset_name]
+        return {dataset_name: self.__catalog.load(dataset_name) for dataset_name in dataset_names if dataset_name}
 
     def __get_default_output_path(self):
         name, ext = os.path.splitext(os.path.basename(self.__input_path))
